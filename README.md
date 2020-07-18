@@ -18,4 +18,4 @@ The best thing to ask it is to "Tell me a story (complete)".
 
 Core code by John Selstad: https://twitter.com/johnselstad
 
-Design styling by David Holz: https://twitter.com/DavidSHolz
+Design & styling by David Holz: https://twitter.com/DavidSHolz
