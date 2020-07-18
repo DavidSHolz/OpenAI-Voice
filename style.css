@@ -3,4 +3,7 @@ body {
     color: white;
     font-family: 'Roboto Mono', monospace;
     line-height: 1.5;
+    margin: 0;
+    padding: 2vw 20vw 20vw 20vw;
+    font-weight: 200;
 }
