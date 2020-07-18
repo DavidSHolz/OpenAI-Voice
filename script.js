@@ -159,6 +159,8 @@ function speakVoice(speech) {
     //console.log(synthesizedVoices[i]);
     if (synthesizedVoices[i].voiceURI === "Google UK English Male") { //Google US English, Google UK English Female, Google UK English Male
       speechUtterance.voice = synthesizedVoices[i];
+      speechUtterance.rate = 0.9;
+      speechUtterance.pitch = 0.4;
     }
   }
 
