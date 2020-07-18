@@ -1,8 +1,8 @@
 // 1. Set up the Streaming Speech Recognition API
 var final_transcript = 'The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly. \n\
 \n\
-Human: Hello, who are you?\n\
-AI: I am an AI created by OpenAI. How can I help you today?\n\
+Human: Hello, who are you?\n\n\
+AI: I am an AI created by OpenAI. How can I help you today?\n\n\
 Human: ';
 
 var completionWord = "complete";
@@ -18,7 +18,7 @@ recognition.continuous = true;
 recognition.interimResults = true;
 recognition.onstart = function() {
     recognizing = true;
-    temporary_status = "\n\nListening...  Say '" + completionWord + "' to Submit to the AI.";
+    temporary_status = "\n\nListening...  Press spacebar or say the word '" + completionWord + "' to Submit to the AI.";
     updateStatus();
 };
 recognition.onerror = function(event) {
@@ -132,7 +132,7 @@ function queryAPI() {
             AIRequest.close();
             AIRequest.removeEventListener("message", messageHandler);
             speak('', true);
-            final_transcript += "\n\n<br>Human:<br> ";
+            final_transcript += "\n\n\Human: ";
             updateStatus();
             startIfDoneTalking();
             return;
