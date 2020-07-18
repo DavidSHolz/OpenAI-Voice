@@ -132,7 +132,7 @@ function queryAPI() {
             AIRequest.close();
             AIRequest.removeEventListener("message", messageHandler);
             speak('', true);
-            final_transcript += "\nHuman: ";
+            final_transcript += "\n\n<br>Human:<br> ";
             updateStatus();
             startIfDoneTalking();
             return;
