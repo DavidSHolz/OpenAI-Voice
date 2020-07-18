@@ -111,6 +111,7 @@ function queryAPI() {
       "stream": true,
       "logprobs": null,
       "stop": "\n",
+      "presence_penalty": 0.6, 
     })
   });
   let messageHandler = function (e) {
@@ -156,7 +157,7 @@ function speakVoice(speech) {
 
   for (let i = 0; i < synthesizedVoices.length; i++){
     //console.log(synthesizedVoices[i]);
-    if (synthesizedVoices[i].voiceURI === "Google UK English Female") { //Google US English, Google UK English Female, Google UK English Male
+    if (synthesizedVoices[i].voiceURI === "Google UK English Male") { //Google US English, Google UK English Female, Google UK English Male
       speechUtterance.voice = synthesizedVoices[i];
     }
   }
