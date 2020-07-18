@@ -1,8 +1,8 @@
 // 1. Set up the Streaming Speech Recognition API
 var final_transcript = 'The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\
-\n\nHuman: Hello, who are you?\
-\n\nAI: I am an AI created by OpenAI. How can I help you today?\
-\n\nHuman: ';
+\nHuman: Hello, who are you?\
+\nAI: I am an AI created by OpenAI. How can I help you today?\
+\nHuman: ';
 
 var completionWord = "complete";
 
@@ -17,23 +17,23 @@ recognition.continuous = true;
 recognition.interimResults = true;
 recognition.onstart = function() {
     recognizing = true;
-    temporary_status = "\n\nListening...\
-     \n\nPress spacebar to submit or say the word '" + completionWord + "'";
+    temporary_status = "\nListening...\
+     \nPress spacebar to submit or say the word '" + completionWord + "'";
     updateStatus();
 };
 recognition.onerror = function(event) {
     if (event.error == 'no-speech') {
-        temporary_status = "\n\nDidn't detect any speech...";
+        temporary_status = "\nDidn't detect any speech...";
         updateStatus();
         ignore_onend = true;
     }
     if (event.error == 'audio-capture') {
-        temporary_status = "\n\nDidn't detect any microphone...";
+        temporary_status = "\nDidn't detect any microphone...";
         updateStatus();
         ignore_onend = true;
     }
     if (event.error == 'not-allowed') {
-        temporary_status = "\n\nSpeech recognition blocked...";
+        temporary_status = "\nSpeech recognition blocked...";
         updateStatus();
         ignore_onend = true;
     }
@@ -43,7 +43,7 @@ recognition.onresult = function(event) {
     if (typeof(event.results) == 'undefined') {
         recognition.onend = null;
         recognition.stop();
-        temporary_status = "\n\nBrowser doesn't support speech recognition...";
+        temporary_status = "\nBrowser doesn't support speech recognition...";
         return;
     }
     for (var i = event.resultIndex; i < event.results.length; ++i) {
@@ -74,13 +74,13 @@ recognition.onresult = function(event) {
 recognition.onend = function() {
     recognizing = false;
     if (ignore_onend) {
-        if (temporary_status === "\n\nDidn't detect any speech...") {
+        if (temporary_status === "\nDidn't detect any speech...") {
             startButton();
         }
         return;
     }
-    final_transcript += "\n\nAI:"; // <- NO SPACE AFTER THE COLON GRAAAAAGH
-    temporary_status = "\n\nWaiting for AI...";
+    final_transcript += "\nAI:"; // <- NO SPACE AFTER THE COLON GRAAAAAGH
+    temporary_status = "\nWaiting for AI...";
     updateStatus();
     queryAPI();
 };
@@ -118,6 +118,7 @@ function queryAPI() {
             "max_tokens": 300,
             "temperature": 0.9,
             "presence_penalty": 0.6,
+            "frequency_penalty": 0.2,
             "top_p": 1,
             "n": 1,
             "stream": true,
@@ -133,7 +134,7 @@ function queryAPI() {
             AIRequest.close();
             AIRequest.removeEventListener("message", messageHandler);
             speak('', true);
-            final_transcript += "\n\nHuman: ";
+            final_transcript += "\nHuman: ";
             updateStatus();
             startIfDoneTalking();
             return;
@@ -212,7 +213,7 @@ var one_line = /\n/g;
 var first_char = /\S/;
 
 function linebreak(s) {
-    return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+    return s.replace(two_line, '<p></p>').replace(one_line, '<p></p>');
 }
 
 function capitalize(s) {
