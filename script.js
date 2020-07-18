@@ -1,9 +1,8 @@
 // 1. Set up the Streaming Speech Recognition API
-var final_transcript = 'The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly. \n\
-\n\
-Human: Hello, who are you?\n\n\
-AI: I am an AI created by OpenAI. How can I help you today?\n\n\
-Human: ';
+var final_transcript = 'The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\
+\n\nHuman: Hello, who are you?\
+\n\nAI: I am an AI created by OpenAI. How can I help you today?\
+\n\nHuman: ';
 
 var completionWord = "complete";
 
@@ -18,7 +17,8 @@ recognition.continuous = true;
 recognition.interimResults = true;
 recognition.onstart = function() {
     recognizing = true;
-    temporary_status = "\n\nListening...  Press spacebar or say the word '" + completionWord + "' to Submit to the AI.";
+    temporary_status = "\n\nListening...\
+     \n\nPress spacebar to submit or say the word '" + completionWord + "'";
     updateStatus();
 };
 recognition.onerror = function(event) {
@@ -79,7 +79,7 @@ recognition.onend = function() {
         }
         return;
     }
-    final_transcript += "\nAI:"; // <- NO SPACE AFTER THE COLON GRAAAAAGH
+    final_transcript += "\n\nAI:"; // <- NO SPACE AFTER THE COLON GRAAAAAGH
     temporary_status = "\n\nWaiting for AI...";
     updateStatus();
     queryAPI();
@@ -113,15 +113,16 @@ function queryAPI() {
             "Authorization": "Bearer " + new URLSearchParams(window.location.search).get("key")
         },
         payload: JSON.stringify({
+            "model": "davinci:2020-05-03",
             "prompt": final_transcript,
             "max_tokens": 300,
             "temperature": 0.9,
+            "presence_penalty": 0.6,
             "top_p": 1,
             "n": 1,
             "stream": true,
             "logprobs": null,
             "stop": "\n",
-            "presence_penalty": 0.6,
         })
     });
     let messageHandler = function(e) {
@@ -132,7 +133,7 @@ function queryAPI() {
             AIRequest.close();
             AIRequest.removeEventListener("message", messageHandler);
             speak('', true);
-            final_transcript += "\n\n\Human: ";
+            final_transcript += "\n\nHuman: ";
             updateStatus();
             startIfDoneTalking();
             return;
