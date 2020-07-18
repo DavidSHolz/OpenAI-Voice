@@ -14,6 +14,8 @@ This is not meant to serve as an example for how to use the API; it was put toge
 
 The best thing to ask it is to "Tell me a story (complete)".
 
+----
+
 Core code by John Selstad: https://twitter.com/johnselstad
 
 Design styling by David Holz: https://twitter.com/DavidSHolz
