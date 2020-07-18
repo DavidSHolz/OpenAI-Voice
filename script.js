@@ -69,7 +69,6 @@ recognition.onresult = function(event) {
             recognition.stop();
         }
     }
-}
 
 };
 recognition.onend = function() {
